@@ -17,6 +17,11 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "UP" });
 });
 app.use("/api/user", userRouter);
+app.use("/api", (req, res, next) => {
+  return res
+    .status(404)
+    .json({ message: `Can't find ${req.originalUrl} on this server!` });
+});
 
 // Global error handling middleware
 app.use(errorHandler);
